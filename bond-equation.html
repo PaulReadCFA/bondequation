@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bond Valuation Equation</title>
+  <style>
+    /* Reset and base styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: transparent;
+      padding: 1rem;
+      overflow-x: auto;
+    }
+
+    /* Equation container styles from bond-specific.css */
+    .equation-container {
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      border: 2px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin: 0 auto;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100px;
+    }
+
+    /* MathML styling */
+    math {
+      font-size: 1.25rem;
+      display: inline-block;
+      padding: 0.5rem;
+    }
+
+    /* Ensure proper spacing and sizing */
+    mfrac {
+      margin: 0 0.25rem;
+    }
+
+    mi, mn, mo {
+      font-family: "Times New Roman", Times, serif;
+    }
+
+    /* Color variables matching calculator */
+    mi[mathcolor="#b95b1d"] {
+      color: #b95b1d;
+    }
+
+    mtext[mathcolor="#b95b1d"] {
+      color: #b95b1d;
+    }
+
+    mi[mathcolor="#3c6ae5"] {
+      color: #3c6ae5;
+    }
+
+    mi[mathcolor="#7a46ff"] {
+      color: #7a46ff;
+    }
+
+    mi[mathcolor="#15803d"] {
+      color: #15803d;
+    }
+
+    mi[mathcolor="#0079a6"] {
+      color: #0079a6;
+    }
+
+    /* Intro text styling */
+    .equation-intro {
+      text-align: left;
+      font-size: 1rem;
+      color: #374151;
+      margin-bottom: 1rem;
+      line-height: 1.5;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .equation-container {
+        padding: 1rem;
+      }
+
+      math {
+        font-size: 1rem;
+      }
+
+      .equation-intro {
+        font-size: 0.9375rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 0.5rem;
+      }
+
+      .equation-container {
+        padding: 0.75rem;
+        border-radius: 8px;
+      }
+
+      math {
+        font-size: 0.875rem;
+      }
+
+      .equation-intro {
+        font-size: 0.875rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <p class="equation-intro">
+    Equation 6 expresses the price of a coupon bond as
+  </p>
+  <div class="equation-container" role="region" aria-label="Bond valuation equation">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <semantics>
+        <mrow>
+          <msub>
+            <mi mathcolor="#b95b1d">PV</mi>
+            <mtext mathcolor="#b95b1d">Coupon bond</mtext>
+          </msub>
+          <mo>=</mo>
+          <mrow>
+            <mfrac>
+              <mi mathcolor="#3c6ae5" mathsize="12pt">PMT</mi>
+              <mi mathcolor="#7a46ff" mathsize="14pt">r</mi>
+            </mfrac>
+            <mo>×</mo>
+            <mo>[</mo>
+            <mrow>
+              <mn>1</mn>
+              <mo> − </mo>
+              <mfrac>
+                <mn mathsize="12pt">1</mn>
+                <msup>
+                  <mrow>
+                    <mo>(</mo>
+                    <mrow>
+                      <mn>1</mn>
+                      <mo> + </mo>
+                      <mi mathcolor="#7a46ff" mathsize="14pt">r</mi>
+                    </mrow>
+                    <mo>)</mo>
+                  </mrow>
+                  <mi mathcolor="#15803d" mathsize="12pt">T</mi>
+                </msup>
+              </mfrac>
+            </mrow>
+            <mo>]</mo>
+          </mrow>
+          <mo>+</mo>
+          <mfrac>
+            <mi mathcolor="#0079a6" mathsize="12pt">FV</mi>
+            <msup>
+              <mrow>
+                <mo>(</mo>
+                <mrow>
+                  <mn>1</mn>
+                  <mo>+</mo>
+                  <mi mathcolor="#7a46ff" mathsize="14pt">r</mi>
+                </mrow>
+                <mo>)</mo>
+              </mrow>
+              <mi mathcolor="#15803d" mathsize="12pt">T</mi>
+            </msup>
+          </mfrac>
+        </mrow>
+      </semantics>
+    </math>
+  </div>
+</body>
+</html>
