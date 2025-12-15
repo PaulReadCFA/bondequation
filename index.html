@@ -19,9 +19,16 @@
       overflow-x: auto;
     }
 
+    /* Math font stack matching calculator */
+    :root {
+      --font-math: 'STIX Two Math', 'Cambria Math', 'Latin Modern Math', 'XITS Math', 
+                   'Asana Math', 'TeX Gyre Termes Math', 'DejaVu Math TeX Gyre', 
+                   'Computer Modern', serif;
+    }
+
     /* Equation container styles - simple card */
     .equation-container {
-      background: white;
+      background: transparent;
       border: none;
       padding: 1.5rem;
       margin: 0 auto;
@@ -31,11 +38,29 @@
       min-height: 100px;
     }
 
-    /* MathML styling */
+    /* MathML styling - matches calculator */
     math {
-      font-size: 1.25rem;
+      font-family: var(--font-math);
+      font-size: 1rem;
+      font-weight: 600;
+      color: #374151;
       display: inline-block;
       padding: 0.5rem;
+    }
+
+    /* Bracket operators - matches calculator */
+    math mo {
+      margin: 0 0.1em;
+    }
+
+    /* Fractions */
+    math mfrac {
+      margin: 0 0.2em;
+    }
+
+    /* Subscript text */
+    math msub mtext {
+      font-size: 0.75em;
     }
 
     /* Ensure proper spacing and sizing */
@@ -120,60 +145,42 @@
     Equation 6 expresses the price of a coupon bond as
   </p>
   <div class="equation-container" role="region" aria-label="Bond valuation equation">
-    <math xmlns="http://www.w3.org/1998/Math/MathML">
-      <semantics>
-        <mrow>
-          <msub>
-            <mi mathcolor="#b95b1d">PV</mi>
-            <mtext mathcolor="#b95b1d">Coupon bond</mtext>
-          </msub>
-          <mo>=</mo>
-          <mrow>
-            <mfrac>
-              <mi mathcolor="#3c6ae5" mathsize="12pt">PMT</mi>
-              <mi mathcolor="#7a46ff" mathsize="14pt">r</mi>
-            </mfrac>
-            <mo>×</mo>
-            <mo>[</mo>
-            <mrow>
-              <mn>1</mn>
-              <mo> − </mo>
-              <mfrac>
-                <mn mathsize="12pt">1</mn>
-                <msup>
-                  <mrow>
-                    <mo>(</mo>
-                    <mrow>
-                      <mn>1</mn>
-                      <mo> + </mo>
-                      <mi mathcolor="#7a46ff" mathsize="14pt">r</mi>
-                    </mrow>
-                    <mo>)</mo>
-                  </mrow>
-                  <mi mathcolor="#15803d" mathsize="12pt">T</mi>
-                </msup>
-              </mfrac>
-            </mrow>
-            <mo>]</mo>
+    <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+      <mrow>
+        <msub>
+          <mi mathcolor="#b95b1d">PV</mi>
+          <mtext mathcolor="#b95b1d">Coupon bond</mtext>
+        </msub>
+        <mo>=</mo>
+        <mfrac linethickness="1.2px">
+          <mi mathvariant="bold" mathcolor="#3c6ae5">PMT</mi>
+          <mrow class="denominator-r">
+            <mi mathcolor="#7a46ff">r</mi>
           </mrow>
-          <mo>+</mo>
+        </mfrac>
+        <mo>×</mo>
+        <mo fence="true" stretchy="true" symmetric="true">[</mo>
+        <mrow>
+          <mn>1</mn>
+          <mo>-</mo>
           <mfrac>
-            <mi mathcolor="#0079a6" mathsize="12pt">FV</mi>
+            <mn>1</mn>
             <msup>
-              <mrow>
-                <mo>(</mo>
-                <mrow>
-                  <mn>1</mn>
-                  <mo>+</mo>
-                  <mi mathcolor="#7a46ff" mathsize="14pt">r</mi>
-                </mrow>
-                <mo>)</mo>
-              </mrow>
-              <mi mathcolor="#15803d" mathsize="12pt">T</mi>
+              <mrow><mo>(</mo><mn>1</mn><mo>+</mo><mi mathcolor="#7a46ff">r</mi><mo>)</mo></mrow>
+              <mi mathcolor="#15803d">T</mi>
             </msup>
           </mfrac>
         </mrow>
-      </semantics>
+        <mo fence="true" stretchy="true" symmetric="true">]</mo>
+        <mo>+</mo>
+        <mfrac>
+          <mi mathcolor="#0079a6" mathvariant="bold">FV</mi>
+          <msup>
+            <mrow><mo>(</mo><mn>1</mn><mo>+</mo><mi mathcolor="#7a46ff">r</mi><mo>)</mo></mrow>
+            <mi mathcolor="#15803d">T</mi>
+          </msup>
+        </mfrac>
+      </mrow>
     </math>
   </div>
 </body>
