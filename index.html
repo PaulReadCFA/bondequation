@@ -1,141 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bond Valuation Equation</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bond Valuation Equation (Static)</title>
+
   <style>
-    /* Reset and base styles */
-    * {
+    /* === Core variables (trimmed from calculator) ======================= */
+    :root {
+      /* Grays */
+      --color-gray-50: #f9fafb;
+      --color-gray-200: #e5e7eb;
+      --color-gray-600: #4b5563;
+      --color-gray-700: #374151;
+      --color-gray-800: #111827;
+
+      /* Bond-specific colors */
+      --color-orange-deep: #b95b1d;
+      --color-bond-pv: var(--color-orange-deep);
+
+      /* Math font stack (from calculator) */
+      --font-math: 'STIX Two Math', 'Cambria Math', 'Latin Modern Math', 'XITS Math',
+                   'Asana Math', 'TeX Gyre Termes Math', 'DejaVu Math TeX Gyre',
+                   'Computer Modern', serif;
+    }
+
+    /* Try to load STIX Two Math if present on system (same as calculator) */
+    @font-face {
+      font-family: 'STIX Two Math';
+      src: local('STIX Two Math'), local('STIXTwoMath-Regular');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    /* === Base layout (aligned with calculator) ========================= */
+    *,
+    *::before,
+    *::after {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
 
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
+    }
+
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      background: transparent;
-      padding: 1rem;
-      overflow-x: auto;
-    }
-
-    /* Math font stack matching calculator */
-    :root {
-      --font-math: 'STIX Two Math', 'Cambria Math', 'Latin Modern Math', 'XITS Math', 
-                   'Asana Math', 'TeX Gyre Termes Math', 'DejaVu Math TeX Gyre', 
-                   'Computer Modern', serif;
-    }
-
-    /* Equation container styles - simple card */
-    .equation-container {
-      background: transparent;
-      border: none;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--color-gray-50);
+      color: var(--color-gray-800);
+      line-height: 1.5;
       padding: 1.5rem;
-      margin: 0 auto;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100px;
+      min-height: 100vh;
+      font-size: clamp(0.875rem, 1vw + 0.5rem, 1rem);
     }
 
-    /* MathML styling - matches calculator */
+    /* === Equation intro text =========================================== */
+    .equation-intro {
+      font-size: 0.875rem;
+      color: var(--color-gray-600);
+      margin-bottom: 1rem;
+      text-align: left;
+    }
+
+    /* === Equation container (from bond calculator) ===================== */
+    .equation-container {
+      padding: 1rem;
+      margin: 0.75rem 0;
+      background: #ffffff;
+      border: 1px solid var(--color-gray-200);
+      border-radius: 0.5rem;
+      overflow-x: auto;
+      overflow-y: hidden;
+      max-width: 100%;
+      -webkit-overflow-scrolling: touch;
+      container-type: inline-size;
+      container-name: equation;
+    }
+
+    /* === MathML styling (from calculator) ============================== */
     math {
       font-family: var(--font-math);
-      font-size: 1rem;
+      font-size: 1.125rem;
       font-weight: 600;
-      color: #374151;
+      color: var(--color-gray-800);
+      margin: 0.5rem 0;
       display: inline-block;
-      padding: 0.5rem;
     }
 
-    /* Bracket operators */
-    math mo {
-      margin: 0 0.1em;
+    /* Subscript text under PV label */
+    math msub mtext {
+      font-size: 0.75em;
+      color: var(--color-bond-pv);
     }
 
-    /* Fractions */
+    /* Fractions and operators spacing */
     math mfrac {
       margin: 0 0.2em;
     }
 
-    /* Subscript text */
-    math msub mtext {
-      font-size: 0.75em;
+    math mo {
+      margin: 0 0.1em;
     }
 
-    /* Ensure proper spacing and sizing */
-    mfrac {
-      margin: 0 0.25rem;
+    .denominator-r {
+      padding-top: 0.25em;
     }
 
-    /* IMPORTANT FIX:
-       Only mi and mn get Times New Roman.
-       mo is removed so brackets remain stretchy. */
-    mi, mn {
-      font-family: "Times New Roman", Times, serif;
-    }
-
-    /* Color variables matching calculator */
-    mi[mathcolor="#b95b1d"],
-    mtext[mathcolor="#b95b1d"] {
-      color: #b95b1d;
-    }
-
-    mi[mathcolor="#3c6ae5"] {
-      color: #3c6ae5;
-    }
-
-    mi[mathcolor="#7a46ff"] {
-      color: #7a46ff;
-    }
-
-    mi[mathcolor="#15803d"] {
-      color: #15803d;
-    }
-
-    mi[mathcolor="#0079a6"] {
-      color: #0079a6;
-    }
-
-    /* Intro text styling */
-    .equation-intro {
-      text-align: left;
-      font-size: 1rem;
-      color: #374151;
-      margin-bottom: 1rem;
-      line-height: 1.5;
-    }
-
-    /* Responsive adjustments */
+    /* Responsive tweaks for smaller screens (mirroring calculator) */
     @media (max-width: 768px) {
+      .equation-container math {
+        font-size: 0.95em;
+      }
       .equation-container {
-        padding: 1rem;
+        padding: 0.75rem;
       }
+    }
 
-      math {
-        font-size: 1rem;
+    @media (max-width: 640px) {
+      .equation-container math {
+        font-size: 0.85em;
       }
-
-      .equation-intro {
-        font-size: 0.9375rem;
+      .equation-container {
+        padding: 0.5rem;
       }
     }
 
     @media (max-width: 480px) {
       body {
-        padding: 0.5rem;
+        padding: 1rem;
       }
-
+      .equation-container math {
+        font-size: 0.75em;
+      }
       .equation-container {
-        padding: 0.75rem;
-      }
-
-      math {
-        font-size: 0.875rem;
-      }
-
-      .equation-intro {
-        font-size: 0.875rem;
+        padding: 0.25rem;
       }
     }
   </style>
@@ -163,9 +165,7 @@
 
         <mo>×</mo>
 
-        <!-- STRETCHY BRACKETS WORK NOW -->
         <mo fence="true" stretchy="true" symmetric="true">[</mo>
-
         <mrow>
           <mn>1</mn>
           <mo>-</mo>
@@ -173,13 +173,16 @@
             <mn>1</mn>
             <msup>
               <mrow>
-                <mo>(</mo><mn>1</mn><mo>+</mo><mi mathcolor="#7a46ff">r</mi><mo>)</mo>
+                <mo>(</mo>
+                <mn>1</mn>
+                <mo>+</mo>
+                <mi mathcolor="#7a46ff">r</mi>
+                <mo>)</mo>
               </mrow>
               <mi mathcolor="#15803d">T</mi>
             </msup>
           </mfrac>
         </mrow>
-
         <mo fence="true" stretchy="true" symmetric="true">]</mo>
 
         <mo>+</mo>
@@ -188,13 +191,7 @@
           <mi mathcolor="#0079a6" mathvariant="bold">FV</mi>
           <msup>
             <mrow>
-              <mo>(</mo><mn>1</mn><mo>+</mo><mi mathcolor="#7a46ff">r</mi><mo>)</mo>
-            </mrow>
-            <mi mathcolor="#15803d">T</mi>
-          </msup>
-        </mfrac>
-      </mrow>
-    </math>
-  </div>
-</body>
-</html>
+              <mo>(</mo>
+              <mn>1</mn>
+              <mo>+</mo>
+              <mi mathcolor="#7a46ff">r</mi>
