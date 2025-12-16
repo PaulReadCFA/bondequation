@@ -48,7 +48,7 @@
       padding: 0.5rem;
     }
 
-    /* Bracket operators - matches calculator */
+    /* Bracket operators */
     math mo {
       margin: 0 0.1em;
     }
@@ -68,15 +68,15 @@
       margin: 0 0.25rem;
     }
 
-    mi, mn, mo {
+    /* IMPORTANT FIX:
+       Only mi and mn get Times New Roman.
+       mo is removed so brackets remain stretchy. */
+    mi, mn {
       font-family: "Times New Roman", Times, serif;
     }
 
     /* Color variables matching calculator */
-    mi[mathcolor="#b95b1d"] {
-      color: #b95b1d;
-    }
-
+    mi[mathcolor="#b95b1d"],
     mtext[mathcolor="#b95b1d"] {
       color: #b95b1d;
     }
@@ -144,6 +144,7 @@
   <p class="equation-intro">
     Equation 6 expresses the price of a coupon bond as
   </p>
+
   <div class="equation-container" role="region" aria-label="Bond valuation equation">
     <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
       <mrow>
@@ -152,31 +153,43 @@
           <mtext mathcolor="#b95b1d">Coupon bond</mtext>
         </msub>
         <mo>=</mo>
+
         <mfrac linethickness="1.2px">
           <mi mathvariant="bold" mathcolor="#3c6ae5">PMT</mi>
           <mrow class="denominator-r">
             <mi mathcolor="#7a46ff">r</mi>
           </mrow>
         </mfrac>
+
         <mo>×</mo>
+
+        <!-- STRETCHY BRACKETS WORK NOW -->
         <mo fence="true" stretchy="true" symmetric="true">[</mo>
+
         <mrow>
           <mn>1</mn>
           <mo>-</mo>
           <mfrac>
             <mn>1</mn>
             <msup>
-              <mrow><mo>(</mo><mn>1</mn><mo>+</mo><mi mathcolor="#7a46ff">r</mi><mo>)</mo></mrow>
+              <mrow>
+                <mo>(</mo><mn>1</mn><mo>+</mo><mi mathcolor="#7a46ff">r</mi><mo>)</mo>
+              </mrow>
               <mi mathcolor="#15803d">T</mi>
             </msup>
           </mfrac>
         </mrow>
+
         <mo fence="true" stretchy="true" symmetric="true">]</mo>
+
         <mo>+</mo>
+
         <mfrac>
           <mi mathcolor="#0079a6" mathvariant="bold">FV</mi>
           <msup>
-            <mrow><mo>(</mo><mn>1</mn><mo>+</mo><mi mathcolor="#7a46ff">r</mi><mo>)</mo></mrow>
+            <mrow>
+              <mo>(</mo><mn>1</mn><mo>+</mo><mi mathcolor="#7a46ff">r</mi><mo>)</mo>
+            </mrow>
             <mi mathcolor="#15803d">T</mi>
           </msup>
         </mfrac>
