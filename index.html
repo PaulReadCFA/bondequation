@@ -3,22 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bond Valuation Equation (Static)</title>
+  <title>Coupon Bond Equation</title>
 
   <style>
     /* === Core variables (trimmed from calculator) ======================= */
     :root {
-      /* Grays */
       --color-gray-50: #f9fafb;
       --color-gray-200: #e5e7eb;
       --color-gray-600: #4b5563;
       --color-gray-800: #111827;
 
-      /* Bond-specific colors */
       --color-orange-deep: #b95b1d;
       --color-bond-pv: var(--color-orange-deep);
 
-      /* Math font stack (from calculator) */
       --font-math: 'STIX Two Math', 'Cambria Math', 'Latin Modern Math', 'XITS Math',
                    'Asana Math', 'TeX Gyre Termes Math', 'DejaVu Math TeX Gyre',
                    'Computer Modern', serif;
@@ -33,7 +30,6 @@
       font-display: swap;
     }
 
-    /* === Base layout ================================================ */
     *,
     *::before,
     *::after {
@@ -49,28 +45,38 @@
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      background-color: transparent; /* transparent so it blends in */
+      background-color: transparent;
       color: var(--color-gray-800);
       line-height: 1.5;
-      padding: 1.5rem;
-      min-height: 100vh;
+      padding: 1rem;
       font-size: clamp(0.875rem, 1vw + 0.5rem, 1rem);
     }
 
-    /* === Equation intro text ======================================== */
+    /* Visually hidden, screen-reader only */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
+    }
+
     .equation-intro {
       font-size: 0.875rem;
       color: var(--color-gray-600);
-      margin-bottom: 1rem;
+      margin-bottom: 0.75rem;
       text-align: left;
     }
 
-    /* === Equation container ========================================= */
     .equation-container {
-      padding: 1rem;
-      margin: 0.75rem 0;
-      background: transparent;              /* ✅ transparent background */
-      border: none;                         /* no border/card */
+      padding: 0.5rem;
+      margin: 0.25rem 0;
+      background: transparent;
+      border: none;
       border-radius: 0.5rem;
       overflow-x: auto;
       overflow-y: hidden;
@@ -79,12 +85,11 @@
       container-type: inline-size;
       container-name: equation;
 
-      display: flex;                        /* ✅ centre the equation */
+      display: flex;
       justify-content: center;
       align-items: center;
     }
 
-    /* === MathML styling (from calculator) ========================== */
     math {
       font-family: var(--font-math);
       font-size: 1.125rem;
@@ -94,13 +99,11 @@
       display: inline-block;
     }
 
-    /* Subscript text under PV label */
     math msub mtext {
       font-size: 0.75em;
       color: var(--color-bond-pv);
     }
 
-    /* Fractions and operators spacing */
     math mfrac {
       margin: 0 0.2em;
     }
@@ -113,10 +116,9 @@
       padding-top: 0.25em;
     }
 
-    /* Responsive tweaks */
     @media (max-width: 768px) {
       .equation-container {
-        padding: 0.75rem;
+        padding: 0.5rem;
       }
       .equation-container math {
         font-size: 0.95em;
@@ -125,10 +127,7 @@
 
     @media (max-width: 640px) {
       body {
-        padding: 1rem;
-      }
-      .equation-container {
-        padding: 0.5rem;
+        padding: 0.75rem;
       }
       .equation-container math {
         font-size: 0.85em;
@@ -136,8 +135,8 @@
     }
 
     @media (max-width: 480px) {
-      .equation-container {
-        padding: 0.25rem;
+      body {
+        padding: 0.5rem;
       }
       .equation-container math {
         font-size: 0.75em;
@@ -146,12 +145,21 @@
   </style>
 </head>
 <body>
-  <p class="equation-intro">
-    Equation 6 expresses the price of a coupon bond as
+  <p class="equation-intro" id="equation6-intro">
+    Equation 6 expresses the price of a coupon bond as:
   </p>
 
-  <div class="equation-container" role="region" aria-label="Bond valuation equation">
-    <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <div
+    class="equation-container"
+    role="group"
+    aria-labelledby="equation6-intro equation6-desc"
+  >
+    <math
+      xmlns="http://www.w3.org/1998/Math/MathML"
+      display="block"
+      role="math"
+      aria-describedby="equation6-desc"
+    >
       <mrow>
         <msub>
           <mi mathcolor="#b95b1d">PV</mi>
@@ -171,7 +179,7 @@
         <mo fence="true" stretchy="true" symmetric="true">[</mo>
         <mrow>
           <mn>1</mn>
-          <mo>-</mo>
+          <mo>−</mo>
           <mfrac>
             <mn>1</mn>
             <msup>
@@ -205,6 +213,13 @@
         </mfrac>
       </mrow>
     </math>
+  </div>
+
+  <!-- Text alternative / description for ATs and non-MathML environments -->
+  <div id="equation6-desc" class="sr-only">
+    Present value of the coupon bond equals the coupon payment divided by the yield,
+    multiplied by one minus one over one plus the yield to the power T,
+    plus the face value divided by one plus the yield to the power T.
   </div>
 </body>
 </html>
